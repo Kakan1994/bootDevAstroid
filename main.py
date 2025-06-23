@@ -33,10 +33,17 @@ def main():
         screen.fill((0, 0, 0))
         updatable.update(dt)
         for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collision_check(shot):
+                    # Remove the asteroid and shot on collision
+                    asteroid.kill()
+                    shot.kill()
+                    break
             if asteroid.collision_check(player):
                 # Print "Game over!" and exit the game
                 print("Game over!")
                 return
+
         for sprite in drawable:
             sprite.draw(screen)
         pygame.display.flip()
